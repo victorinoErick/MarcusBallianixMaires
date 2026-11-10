@@ -67,6 +67,24 @@ Acesse `http://localhost:3000`.
    branch conectada. O healthcheck pode ser configurado para
    `GET /health`.
 
+## Deploy no Vercel (alternativa)
+
+O `server.js` também roda como função serverless no Vercel, usando o
+`vercel.json` incluído no projeto (ele empacota `server.js` com os
+arquivos de `public/` e redireciona todas as rotas para a função).
+
+1. Importe o repositório no Vercel normalmente.
+2. Em **Settings → Environment Variables**, cadastre `DATABASE_URL`
+   e `ADMIN_TOKEN` (o Vercel não lê o arquivo `.env` do repositório —
+   essas variáveis precisam ser configuradas pelo painel).
+3. Importante: o `DATABASE_URL` precisa ser uma string de conexão
+   **acessível pela internet pública**. Se o Postgres estiver no
+   Railway, use a connection string pública do banco (a aba
+   "Connect" → "Public Network"), não a interna — o Vercel roda fora
+   da rede privada do Railway e não alcança a interna.
+4. Redeploy. Não é preciso configurar `PORT` (o Vercel não usa essa
+   variável para funções serverless).
+
 ## Como exportar a lista de e-mails
 
 A lista (apenas quem não se descadastrou) pode ser baixada em CSV:

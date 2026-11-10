@@ -1,7 +1,8 @@
 /* =========================================================
    Marcus Balliani × M. Aires — server.js
    Express servindo o site estático (public/) e a API de leads,
-   com PostgreSQL via "pg". Pronto para deploy no Railway.
+   com PostgreSQL via "pg". Pronto para deploy no Railway (processo
+   persistente) ou no Vercel (função serverless via vercel.json).
 ========================================================= */
 
 "use strict";
@@ -33,9 +34,13 @@ const useSSL =
 const pool = new Pool({
   connectionString,
   ssl: useSSL ? { rejectUnauthorized: false } : false,
+  // Em função serverless (Vercel), cada invocação pode abrir sua
+  // própria instância do pool — mantemos poucas conexões para não
+  // estourar o limite do Postgres quando há várias invocações em paralelo.
+  max: process.env.VERCEL ? 3 : 10,
 });
 
-async function garantirTabela() {
+async function criarTabela() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS leads (
       id SERIAL PRIMARY KEY,
@@ -53,6 +58,20 @@ async function garantirTabela() {
   await pool.query(
     `CREATE INDEX IF NOT EXISTS leads_email_idx ON leads (email);`
   );
+}
+
+// Memoizado: roda uma única vez por processo (ou por instância "quente"
+// de função serverless) e é aguardado dentro de cada rota que usa o
+// banco, em vez de travar a subida do servidor inteiro caso falhe.
+let tabelaPronta = null;
+function garantirPronto() {
+  if (!tabelaPronta) {
+    tabelaPronta = criarTabela().catch((erro) => {
+      tabelaPronta = null; // permite tentar de novo na próxima requisição
+      throw erro;
+    });
+  }
+  return tabelaPronta;
 }
 
 
@@ -85,6 +104,8 @@ const MENSAGEM_SUCESSO =
 
 app.post("/api/leads", leadsLimiter, async (req, res) => {
   try {
+    await garantirPronto();
+
     const body = req.body || {};
 
     // Honeypot: campo invisível que só bots preenchem. Respondemos
@@ -157,6 +178,8 @@ app.get("/api/leads/export", async (req, res) => {
   }
 
   try {
+    await garantirPronto();
+
     const { rows } = await pool.query(
       `
       SELECT id, nome, email, aceita_marketing, origem, criado_em
@@ -202,6 +225,8 @@ app.get("/descadastrar", async (req, res) => {
   const token = typeof req.query.token === "string" ? req.query.token : "";
 
   try {
+    await garantirPronto();
+
     const { rows } = token
       ? await pool.query(
           `
@@ -313,13 +338,21 @@ app.get("/health", (req, res) => {
    INICIALIZAÇÃO
 ========================= */
 
-garantirTabela()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Servidor rodando na porta ${PORT}`);
+// No Railway (ou localmente com "npm start"), server.js roda como
+// processo persistente e precisa escutar uma porta de verdade.
+// No Vercel, o arquivo é importado por uma função serverless
+// (vercel.json) que só usa o "app" exportado abaixo — nesse caso
+// não chamamos app.listen().
+if (require.main === module) {
+  garantirPronto()
+    .catch((erro) => {
+      console.error("Não foi possível preparar o banco de dados:", erro);
+    })
+    .finally(() => {
+      app.listen(PORT, () => {
+        console.log(`Servidor rodando na porta ${PORT}`);
+      });
     });
-  })
-  .catch((erro) => {
-    console.error("Não foi possível preparar o banco de dados:", erro);
-    process.exit(1);
-  });
+}
+
+module.exports = app;
