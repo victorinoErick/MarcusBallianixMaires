@@ -24,7 +24,9 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
    BANCO DE DADOS (PostgreSQL)
 ========================= */
 
-const connectionString = process.env.DATABASE_URL;
+// O Railway usa DATABASE_URL; o Postgres nativo do Vercel (via Neon)
+// costuma injetar POSTGRES_URL — aceitamos os dois nomes.
+const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL;
 
 // Railway (e a maioria dos provedores gerenciados) exige SSL em
 // produção; localmente, sem SSL, para não exigir certificado.
