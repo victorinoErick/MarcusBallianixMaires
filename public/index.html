@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Marcus Balliani × M. Aires</title>
+
+  <meta
+    name="description"
+    content="Uma nova perspectiva sobre performance, bem-estar e a experiência de cuidar do corpo. Marcus Balliani em colaboração com M. Aires."
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Marca a classe "js" o mais rápido possível: sem isso, o site
+       permanece 100% legível mesmo se o JavaScript não carregar. -->
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+
+<body>
+
+<div id="app">
+
+  <!-- =========================
+       NAVBAR (fixa, transparente sobre a intro)
+  ========================== -->
+
+  <header class="container nav" id="siteNav">
+
+    <a class="brand" href="#inicio">
+      <span class="brand-mark">M</span>
+      <span>Marcus Balliani × M. Aires</span>
+    </a>
+
+    <nav class="nav-right">
+      <a href="#experiencia">Experiência</a>
+      <a href="#lojas">Lojas</a>
+      <a href="#novidade">Em breve</a>
+
+      <a
+        class="nav-social"
+        href="https://t.me/+H9zvADnTgcQ0NzRh"
+        target="_blank"
+        rel="noopener"
+      >
+        Falar com Marcus ↗
+      </a>
+    </nav>
+
+  </header>
+
+
+  <!-- =========================
+       INTRO IMERSIVA — a fruta cortada no scroll
+  ========================== -->
+
+  <section class="fruit-intro" id="fruitIntro" aria-label="Abertura animada da marca Marcus Balliani vezes M. Aires">
+
+    <div class="fruit-intro-pin">
+
+      <div class="fruit-stage">
+
+        <svg
+          class="fruit-svg"
+          id="fruitSvg"
+          viewBox="0 0 640 640"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <defs>
+            <radialGradient id="peelGradient" cx="35%" cy="28%" r="75%">
+              <stop offset="0%" stop-color="#f4b56d"/>
+              <stop offset="55%" stop-color="#e6a35e"/>
+              <stop offset="100%" stop-color="#b06f2c"/>
+            </radialGradient>
+
+            <radialGradient id="peelGradientDark" cx="68%" cy="72%" r="75%">
+              <stop offset="0%" stop-color="#e6a35e"/>
+              <stop offset="55%" stop-color="#c47f3c"/>
+              <stop offset="100%" stop-color="#8f5422"/>
+            </radialGradient>
+
+            <radialGradient id="pithGradient" cx="50%" cy="50%" r="62%">
+              <stop offset="0%" stop-color="#fdf8ee"/>
+              <stop offset="78%" stop-color="#f1eadc"/>
+              <stop offset="100%" stop-color="#e3d9c3"/>
+            </radialGradient>
+
+            <radialGradient id="pulpGradientA" cx="40%" cy="35%" r="80%">
+              <stop offset="0%" stop-color="#ffd98a"/>
+              <stop offset="70%" stop-color="#f3a94a"/>
+              <stop offset="100%" stop-color="#d9832e"/>
+            </radialGradient>
+
+            <radialGradient id="pulpGradientB" cx="60%" cy="60%" r="80%">
+              <stop offset="0%" stop-color="#ffcd79"/>
+              <stop offset="70%" stop-color="#e99a3d"/>
+              <stop offset="100%" stop-color="#c77426"/>
+            </radialGradient>
+
+            <clipPath id="clipLeft">
+              <polygon points="460,36 180,604 -20,660 -20,-20"/>
+            </clipPath>
+
+            <clipPath id="clipRight">
+              <polygon points="460,36 660,-20 660,660 180,604"/>
+            </clipPath>
+
+            <clipPath id="fruitCircleClip">
+              <circle cx="320" cy="320" r="228"/>
+            </clipPath>
+          </defs>
+
+          <!-- interior da fruta: polpa, gomos e albedo (camada fixa, revelada quando as cascas se afastam) -->
+          <g class="fruit-flesh" id="fruitFlesh" clip-path="url(#fruitCircleClip)">
+
+            <circle cx="320" cy="320" r="228" fill="url(#pithGradient)"/>
+
+            <g class="fruit-segments">
+              <path class="seg seg-a" d="M356,320 L535,320 A215,215 0 0 1 472,472 L345.5,345.5 A36,36 0 0 0 356,320 Z"/>
+              <path class="seg seg-b" d="M345.5,345.5 L472,472 A215,215 0 0 1 320,535 L320,356 A36,36 0 0 0 345.5,345.5 Z"/>
+              <path class="seg seg-a" d="M320,356 L320,535 A215,215 0 0 1 168,472 L294.5,345.5 A36,36 0 0 0 320,356 Z"/>
+              <path class="seg seg-b" d="M294.5,345.5 L168,472 A215,215 0 0 1 105,320 L284,320 A36,36 0 0 0 294.5,345.5 Z"/>
+              <path class="seg seg-a" d="M284,320 L105,320 A215,215 0 0 1 168,168 L294.5,294.5 A36,36 0 0 0 284,320 Z"/>
+              <path class="seg seg-b" d="M294.5,294.5 L168,168 A215,215 0 0 1 320,105 L320,284 A36,36 0 0 0 294.5,294.5 Z"/>
+              <path class="seg seg-a" d="M320,284 L320,105 A215,215 0 0 1 472,168 L345.5,294.5 A36,36 0 0 0 320,284 Z"/>
+              <path class="seg seg-b" d="M345.5,294.5 L472,168 A215,215 0 0 1 535,320 L356,320 A36,36 0 0 0 345.5,294.5 Z"/>
+            </g>
+
+            <circle cx="320" cy="320" r="18" fill="#fbf6ea"/>
+
+          </g>
+
+          <!-- metade esquerda da casca -->
+          <g class="fruit-half fruit-half--left" id="halfLeft" clip-path="url(#clipLeft)">
+            <circle cx="320" cy="320" r="228" fill="url(#peelGradient)"/>
+            <circle cx="320" cy="320" r="228" fill="none" stroke="#7f481f" stroke-width="2" opacity="0.35"/>
+            <ellipse class="fruit-shine" cx="245" cy="205" rx="68" ry="44" fill="#fff" opacity="0.22"/>
+          </g>
+
+          <!-- metade direita da casca -->
+          <g class="fruit-half fruit-half--right" id="halfRight" clip-path="url(#clipRight)">
+            <circle cx="320" cy="320" r="228" fill="url(#peelGradientDark)"/>
+            <circle cx="320" cy="320" r="228" fill="none" stroke="#7f481f" stroke-width="2" opacity="0.35"/>
+            <ellipse class="fruit-shine" cx="418" cy="432" rx="52" ry="32" fill="#fff" opacity="0.12"/>
+          </g>
+
+          <!-- linha de corte -->
+          <path class="fruit-cut-line" id="cutLine" d="M460,36 L180,604"/>
+
+          <!-- gotas de suco -->
+          <g class="fruit-droplets" id="fruitDroplets">
+            <circle class="drop" cx="300" cy="260"/>
+            <circle class="drop" cx="340" cy="300"/>
+            <circle class="drop" cx="270" cy="340"/>
+            <circle class="drop" cx="360" cy="380"/>
+            <circle class="drop" cx="310" cy="420"/>
+            <circle class="drop" cx="380" cy="260"/>
+            <circle class="drop" cx="250" cy="300"/>
+            <circle class="drop" cx="330" cy="440"/>
+            <circle class="drop" cx="400" cy="340"/>
+            <circle class="drop" cx="280" cy="400"/>
+            <circle class="drop" cx="350" cy="230"/>
+            <circle class="drop" cx="230" cy="380"/>
+          </g>
+
+        </svg>
+
+        <div class="fruit-title" id="fruitTitle" aria-hidden="true">
+          <span class="fruit-title-line">Marcus Balliani</span>
+          <span class="fruit-title-line fruit-title-x"><span class="x-mark">×</span> M. Aires</span>
+        </div>
+
+        <div class="scroll-cue" id="scrollCue">
+          <span>Role para cortar</span>
+          <i></i>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <main>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="container hero" id="inicio">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          Uma nova forma de cuidar do corpo
+        </div>
+
+        <h1 class="reveal-mask">
+          Performance<br>
+          com <em>origem.</em>
+        </h1>
+
+        <p class="hero-copy">
+          A proposta de Marcus Balliani chega aqui como um convite
+          para transformar movimento, alimentação e cuidado em uma
+          experiência contínua. Em colaboração com M. Aires,
+          estamos preparando um novo ecossistema de performance
+          e bem-estar.
+        </p>
+
+        <div class="hero-actions">
+
+          <a class="btn primary" href="#novidade">
+            Quero conhecer
+          </a>
+
+          <a class="btn" href="#experiencia">
+            Descobrir a proposta
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="visual">
+
+        <div class="hero-photo">
+
+          <img
+            src="images/hero.jpg"
+            alt="Marcus Balliani e M. Aires"
+            class="hero-image"
+          >
+
+          <div class="hero-image-overlay"></div>
+
+          <span class="hero-location">
+            M. AIRES · IBIRAPUERA · MATARAZZO
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         EXPERIÊNCIA
+    ========================== -->
+
+    <section class="section" id="experiencia">
+
+      <div class="container section-grid">
+
+        <div>
+
+          <div class="kicker">
+            A proposta
+          </div>
+
+          <h2 class="reveal-mask">
+            Seu corpo merece mais do que uma rotina.
+          </h2>
+
+        </div>
+
+
+        <div>
+
+          <p class="lead">
+            A visão de Marcus Balliani é levar o cuidado
+            com o corpo para além do treino.
+          </p>
+
+          <p class="body">
+            A colaboração com M. Aires nasce da ideia de
+            aproximar performance, movimento, alimentação
+            e comunidade. A experiência com frutas, origem,
+            seleção e frescor encontra uma nova forma de
+            pensar fitness: mais humana, mais envolvente
+            e feita para acompanhar a vida real.
+          </p>
+
+          <p class="body">
+            Este site é a porta de entrada para o que vem
+            a seguir. Em breve, essa proposta vai ganhar
+            uma plataforma própria, conectando pessoas
+            que treinam, se movimentam e querem fazer
+            bem ao corpo.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="container pillars" id="pillarsGrid">
+
+        <article class="pillar">
+
+          <div class="number">
+            01 / ORIGEM
+          </div>
+
+          <h3>
+            Fruta como matéria-prima
+          </h3>
+
+          <p>
+            Seleção e experiência M. Aires aplicadas
+            a uma nova conversa sobre alimentação,
+            energia e qualidade.
+          </p>
+
+        </article>
+
+
+        <article class="pillar">
+
+          <div class="number">
+            02 / PERFORMANCE
+          </div>
+
+          <h3>
+            O corpo em movimento
+          </h3>
+
+          <p>
+            Treinos, desafios e hábitos que transformam
+            movimento em evolução, com uma experiência
+            pensada para acompanhar cada conquista.
+          </p>
+
+        </article>
+
+
+        <article class="pillar">
+
+          <div class="number">
+            03 / COMUNIDADE
+          </div>
+
+          <h3>
+            Uma nova experiência
+          </h3>
+
+          <p>
+            Uma plataforma para conectar pessoas,
+            compartilhar treinos e transformar
+            constância em recompensas dentro
+            da experiência M. Aires.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         FRASE
+    ========================== -->
+
+    <section class="section collab">
+
+      <div class="container">
+
+        <div class="kicker">
+          Marcus Balliani × M. Aires
+        </div>
+
+        <p class="quote" id="collabQuote">
+          “Não é apenas sobre treinar. É sobre criar
+          uma rotina que faz bem ao corpo, celebrar
+          cada conquista e transformar movimento em
+          <span>experiência.</span>”
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         GALERIA
+    ========================== -->
+
+    <section class="section gallery-section">
+
+      <div class="container">
+
+        <div class="kicker">
+          Movimento · Origem · Experiência
+        </div>
+
+        <h2 class="reveal-mask">
+          O que vem pela frente.
+        </h2>
+
+
+        <div class="gallery" id="galleryGrid">
+
+          <div class="gallery-card large">
+
+            <img
+              src="images/performance.jpg"
+              alt="Performance com propósito"
+              loading="lazy"
+            >
+
+            <div class="gallery-overlay"></div>
+
+            <span class="gallery-label">
+              Performance com propósito
+            </span>
+
+          </div>
+
+
+          <div class="gallery-card">
+
+            <img
+              src="images/energia.jpg"
+              alt="Energia natural"
+              loading="lazy"
+            >
+
+            <div class="gallery-overlay"></div>
+
+            <span class="gallery-label">
+              Energia natural
+            </span>
+
+          </div>
+
+
+          <div class="gallery-card">
+
+            <img
+              src="images/m-aires.jpg"
+              alt="Experiência M. Aires"
+              loading="lazy"
+            >
+
+            <div class="gallery-overlay"></div>
+
+            <span class="gallery-label">
+              Experiência M. Aires
+            </span>
+
+          </div>
+
+
+          <div class="gallery-card">
+
+            <img
+              src="images/comunidade.jpg"
+              alt="Comunidade em movimento"
+              loading="lazy"
+            >
+
+            <div class="gallery-overlay"></div>
+
+            <span class="gallery-label">
+              Comunidade em movimento
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         BALLIANI TRAINING
+    ========================== -->
+
+    <section class="section contact" id="contato">
+
+      <div class="container contact-box">
+
+        <div>
+
+          <div class="kicker">
+            Balliani Training
+          </div>
+
+          <h3>
+            Quer treinar com a gente?
+          </h3>
+
+          <p>
+            Entre no grupo do Balliani Training no Telegram
+            para acompanhar os treinos, desafios e a comunidade
+            enquanto a nova plataforma não chega.
+          </p>
+
+        </div>
+
+
+        <div class="contact-actions">
+
+          <a
+            class="btn primary"
+            href="https://t.me/+H9zvADnTgcQ0NzRh"
+            target="_blank"
+            rel="noopener"
+          >
+            Entrar no Telegram ↗
+          </a>
+
+          <a
+            class="btn"
+            href="https://www.instagram.com/movimentolendario/"
+            target="_blank"
+            rel="noopener"
+          >
+            @movimentolendario ↗
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         LOJAS
+    ========================== -->
+
+    <section class="section" id="lojas">
+
+      <div class="container">
+
+        <div class="kicker">
+          Onde a experiência começa
+        </div>
+
+        <h2 class="reveal-mask">
+          Nossas lojas.
+        </h2>
+
+        <div class="location" id="lojasGrid">
+
+          <div class="location-cards">
+
+            <div class="location-card">
+
+              <div>
+
+                <h3>
+                  M. Aires<br>
+                  Ibirapuera
+                </h3>
+
+                <p class="address">
+                  Av. República do Líbano, s/n<br>
+                  Ibirapuera · São Paulo — SP<br>
+                  04501-003
+                </p>
+
+              </div>
+
+              <a
+                class="btn"
+                href="https://www.google.com/maps/search/?api=1&query=M+Aires+Ibirapuera+Av+Rep%C3%BAblica+do+L%C3%ADbano+S%2FN+S%C3%A3o+Paulo"
+                target="_blank"
+                rel="noopener"
+              >
+                Abrir localização ↗
+              </a>
+
+            </div>
+
+
+            <div class="location-card">
+
+              <div>
+
+                <span class="tag-new">Nova</span>
+
+                <h3>
+                  Squeeze House<br>
+                  Complexo Matarazzo
+                </h3>
+
+                <p class="address">
+                  Alameda Rio Claro, 190<br>
+                  Bela Vista · São Paulo — SP
+                </p>
+
+              </div>
+
+              <a
+                class="btn"
+                href="https://www.google.com/maps/search/?api=1&query=Squeeze+House+Alameda+Rio+Claro+190+Bela+Vista+S%C3%A3o+Paulo"
+                target="_blank"
+                rel="noopener"
+              >
+                Abrir localização ↗
+              </a>
+
+            </div>
+
+          </div>
+
+
+          <div class="map-box">
+
+            <div class="pin"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PLATAFORMA
+    ========================== -->
+
+    <section class="coming" id="novidade">
+
+      <div class="container coming-inner">
+
+        <div class="kicker">
+          A plataforma está chegando
+        </div>
+
+        <h2 class="reveal-mask">
+          Treine. Conquiste. Desbloqueie.
+        </h2>
+
+        <p>
+          Em breve, a proposta de Marcus Balliani vai ganhar
+          uma plataforma onde movimento vira experiência.
+          Compartilhe seus treinos, participe de desafios,
+          acumule pontos e troque suas conquistas por
+          experiências e benefícios na M. Aires.
+        </p>
+
+
+        <div class="pillars coming-pillars">
+
+          <article class="pillar">
+
+            <div class="number">
+              5 KM / 05 PONTOS
+            </div>
+
+            <h3>
+              Seu treino vale
+            </h3>
+
+            <p>
+              Registre uma corrida de 5 km e transforme
+              sua atividade em pontos dentro da plataforma.
+            </p>
+
+          </article>
+
+
+          <article class="pillar">
+
+            <div class="number">
+              PONTOS / RECOMPENSAS
+            </div>
+
+            <h3>
+              Suas conquistas voltam para você
+            </h3>
+
+            <p>
+              Quanto mais você se movimenta, mais pontos
+              acumula para desbloquear benefícios
+              e experiências.
+            </p>
+
+          </article>
+
+
+          <article class="pillar">
+
+            <div class="number">
+              M. AIRES / MATARAZZO
+            </div>
+
+            <h3>
+              O treino encontra a experiência
+            </h3>
+
+            <p>
+              As recompensas poderão ser resgatadas
+              nas nossas lojas, conectando seus
+              resultados ao lugar onde tudo começou.
+            </p>
+
+          </article>
+
+        </div>
+
+
+        <p class="email-intro">
+          Deixe seu e-mail e seja uma das primeiras pessoas
+          a saber quando a plataforma estiver disponível.
+        </p>
+
+
+        <form class="form" id="notifyForm" novalidate>
+
+          <!-- honeypot: campo invisível para despistar bots. Humanos nunca o preenchem. -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="empresa">Empresa</label>
+            <input
+              id="empresa"
+              name="empresa"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="form-row">
+
+            <input
+              id="name"
+              name="nome"
+              type="text"
+              placeholder="Seu nome"
+              autocomplete="name"
+              maxlength="120"
+              required
+              aria-label="Seu nome"
+            >
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Seu melhor e-mail"
+              autocomplete="email"
+              required
+              aria-label="Seu e-mail"
+            >
+
+            <button type="submit" id="submitBtn">
+              Quero saber
+            </button>
+
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" id="aceitaMarketing" required>
+            <span>
+              Aceito receber novidades e promoções de
+              Marcus Balliani × M. Aires por e-mail.
+              Posso cancelar quando quiser.
+            </span>
+          </label>
+
+        </form>
+
+
+        <div
+          class="message"
+          id="message"
+          aria-live="polite"
+        ></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer class="container">
+
+    <span>
+      Marcus Balliani × M. Aires
+    </span>
+
+    <span>
+      Performance · Origem · Bem-estar
+    </span>
+
+    <span>
+      © 2026
+    </span>
+
+  </footer>
+
+</div>
+
+<!-- cursor customizado (ativado apenas em desktop, via JS) -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<!-- GSAP + ScrollTrigger + Lenis (smooth scroll), versões fixas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
