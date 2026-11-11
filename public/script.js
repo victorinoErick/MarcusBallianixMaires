@@ -355,11 +355,10 @@
 
     var nameInput = document.getElementById("name");
     var emailInput = document.getElementById("email");
-    var consentInput = document.getElementById("aceitaMarketing");
-    var honeypotInput = document.getElementById("empresa");
-    var submitBtn = document.getElementById("submitBtn");
     var message = document.getElementById("message");
 
+    // Site estático, sem backend: só confirma na tela, não envia nem
+    // guarda os dados em lugar nenhum.
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
@@ -375,60 +374,9 @@
         return;
       }
 
-      if (!consentInput.checked) {
-        message.textContent =
-          "É necessário aceitar receber novidades por e-mail para continuar.";
-        message.classList.add("is-error");
-        return;
-      }
-
-      var originalLabel = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Enviando…";
-      message.textContent = "Enviando seu cadastro…";
-      message.classList.add("is-loading");
-
-      fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nome: nameInput.value.trim(),
-          email: emailInput.value.trim(),
-          aceitaMarketing: consentInput.checked,
-          empresa: honeypotInput ? honeypotInput.value : "",
-        }),
-      })
-        .then(function (res) {
-          return res.json().then(function (data) {
-            return { ok: res.ok, data: data };
-          });
-        })
-        .then(function (result) {
-          message.classList.remove("is-loading");
-
-          if (result.ok && result.data.ok) {
-            message.textContent =
-              result.data.mensagem ||
-              "Seu interesse foi registrado. Em breve você receberá novidades.";
-            message.classList.remove("is-error");
-            form.reset();
-          } else {
-            message.textContent =
-              (result.data && result.data.erro) ||
-              "Não foi possível concluir seu cadastro. Tente novamente.";
-            message.classList.add("is-error");
-          }
-        })
-        .catch(function () {
-          message.classList.remove("is-loading");
-          message.textContent =
-            "Erro de conexão. Tente novamente em instantes.";
-          message.classList.add("is-error");
-        })
-        .finally(function () {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalLabel;
-        });
+      message.textContent =
+        "Seu interesse foi registrado. Em breve você receberá novidades.";
+      form.reset();
     });
   }
 })();
