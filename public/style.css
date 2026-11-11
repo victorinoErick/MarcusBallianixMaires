@@ -1146,17 +1146,6 @@ html.js .location-card {
   background: rgba(255, 255, 255, 0.03);
 }
 
-.hp-field {
-  position: absolute;
-
-  left: -9999px;
-
-  width: 1px;
-  height: 1px;
-
-  overflow: hidden;
-}
-
 .form input {
   min-width: 0;
 
@@ -1211,41 +1200,6 @@ html.js .location-card {
   transform: none;
 }
 
-.consent {
-  display: flex;
-
-  align-items: flex-start;
-
-  gap: 10px;
-
-  max-width: 640px;
-
-  margin: 18px auto 0;
-
-  text-align: left;
-
-  color: var(--muted);
-
-  font-size: 12px;
-
-  line-height: 1.6;
-
-  cursor: pointer;
-}
-
-.consent input[type="checkbox"] {
-  flex-shrink: 0;
-
-  width: 17px;
-  height: 17px;
-
-  margin-top: 2px;
-
-  accent-color: var(--lime);
-
-  cursor: pointer;
-}
-
 .message {
   min-height: 22px;
 
@@ -1260,10 +1214,6 @@ html.js .location-card {
 
 .message.is-error {
   color: var(--orange);
-}
-
-.message.is-loading {
-  color: var(--muted);
 }
 
 
